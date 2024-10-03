@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>360StyleExpo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Bubbles&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="public/index.css">
+
+    <link rel="icon" href="./Assets/Images/favicon.ico.png" type="image/x-icon">
+
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@v0.163.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@v0.163.0/examples/jsm/"
+        }
+      }
+    </script>
+</head>
+<body>
+    
+    <audio id="bgm" src="./Assets/Audio/jennie bgm.mp3" loop></audio>
+    <button id="sound-button">
+        <img src="./Assets/mute.png" alt="Mute Button" class="fas fa-volume-up" id="sound-btn-img" style="width: 50px; height: 50px;">
+    </button>
+    
+    <button id="nav-button">
+        <img src="./Assets/faq.png" alt="Navigation Popup Button" id="nav-btn-img" style="width: 50px; height: 50px;">
+    </button>
+
+    <!-- How to Navigate Popup -->
+    <div id="nav-popup-bg">
+        <div id="navigate-popup">
+            <button class="nav-close-button" id="nav-close-button">&times;</button>
+            <h2>How to Navigate</h2>
+            
+            <!-- First Navigation Section -->
+            <div id="nav-1" style="display: none;">
+                <h3>1. Drag your mouse to orbit left and right</h3>
+                <!--<img src="./Assets/hotspots.png" id="nav-4-img">-->
+                <video id="nav-1-vid" autoplay muted loop playsinline width="550">
+                    <source src="./Assets/Videos/nav1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <img src="./Assets/next-arrow.png" class="right-arrows" id="right-arrow-1">
+            </div>
+
+            <!-- Second Navigation Section -->
+            <div id="nav-2" style="display: none;">
+                <h3>2. Scroll your mouse wheel up and down to zoom in & out</h3>
+                <video id="nav-2-vid" autoplay muted loop playsinline width="550">
+                    <source src="./Assets/Videos/nav2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <img src="./Assets/prev-arrow.png" class="left-arrows" id="left-arrow-2">
+                <img src="./Assets/next-arrow.png" class="right-arrows" id="right-arrow-2">
+            </div>
+
+            <!-- Third Navigation Section -->
+            <div id="nav-3" style="display: none;">
+                <h3>3. Hold down Shift + Win (Windows) or Command (macOS) <br> and drag your mouse to pan</h3>
+                <video id="nav-3-vid" autoplay muted loop playsinline width="550">
+                    <source src="./Assets/Videos/nav3.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <img src="./Assets/prev-arrow.png" class="left-arrows" id="left-arrow-3">
+                <img src="./Assets/next-arrow.png" class="right-arrows" id="right-arrow-3">
+            </div>
+
+            <!-- Fourth Navigation Section -->
+            <div id="nav-4" style="display: none;">
+                <h3>Click on these hotspots to view the exhibits up close!</h3>
+                <img src="./Assets/hotspots.png" id="nav-4-img">
+                <img src="./Assets/prev-arrow.png" class="left-arrows" id="left-arrow-4">
+            </div>
+        </div>
+    </div>
+
+    <div id="heading">
+        <h1> &#9829;</h1>
+        <div class="border"></div>
+    </div>
+    
+    <!-- Progress Container -->
+    <div id="progress-container">
+        <div id="progress">Loading...</div>
+        <button id="load-start-button" >START</button>
+    </div>
+
+    <!-- Landing Page -->
+    <div id="landing-page">
+        <div class="landing-page-contents">
+            <h2 id="title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welcome to </h2>
+            <h2 id="title2"> &nbsp; &nbsp;Jentle <br> Salon </h2>
+            <h4 id="sub-title">by 360StyleExpo</h4>
+            <button id="start-button">EXPLORE</button>
+        </div>
+    </div>
+
+    
+
+    <!-- Video element for the background -->
+    <div id="video-container">
+        <video id="video" autoplay muted loop playsinline controls>
+            <source src="./Assets/Jentle Salon Popup Video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <video id="hoverVideo1" width="640" height="360" style="display: none;" autoplay loop playsinline></video>
+        <source id="videoSource1" src="" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <video id="hoverVideo2" width="640" height="360" style="display: none;" autoplay loop playsinline>
+        <source id="videoSource2" src="" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <video id="hoverVideo3" width="640" height="360" style="display: none;" autoplay loop playsinline></video>
+        <source id="videoSource3" src="" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Info Window HTML -->
+    <!-- HUSH -->
+    <!-- GLASSES - HUSH PINK -->
+    <div class="info-window" id="hush-pink-info-window">
+        <div class="left-content" id="big-image-container">
+            <!--<img src="./Assets/Product Images/Hush Pink/01.png" alt="Hush Pink 01">-->
+            <img src="./Assets/Product Images/Hush Pink/01.png" class="left-content-img" id="big-hush-pink-1" alt="Hush Pink 01">
+            <img src="./Assets/Product Images/Hush Pink/02.png" class="left-content-img" id="big-hush-pink-2" alt="Hush Pink 02">
+            <img src="./Assets/Product Images/Hush Pink/03.png" class="left-content-img" id="big-hush-pink-3" alt="Hush Pink 03">
+            <img src="./Assets/Product Images/Hush Pink/04.png" class="left-content-img" id="big-hush-pink-4" alt="Hush Pink 04">
+            <!--<img src="./Assets/Product Images/Hush Pink/05.png" class="left-content-img" id="big-hush-pink-5" alt="Hush Pink 05">-->
+            <h2>Jennie - Hush P7</h2>
+            <h3>RM 1,300</h3>
+        </div>
+        
+        <div class="right-content">
+            <button class="close-button">&times;</button>
+            <div>
+                
+            </div>
+            <h2 style="padding-top: 0 !important;">Product Details</h2>
+            <p>Discover the Hush P7 sunglasses from the Jentle Salon collection. The soft oval shape blends seamlessly with the dusty rose pink color to create a unique style while the iconic details on the temples add a captivating appeal.</p>
+            
+            
+            <h2>Product Images</h2>
+            <div class="product-images"> 
+                <img src="./Assets/Product Images/Hush Pink/01.png" class="right-content-img" id="hush-pink-1" alt="Hush Pink 01" data-src="./Assets/Product Images/Hush Pink/01.png">
+                <img src="./Assets/Product Images/Hush Pink/02.png" class="right-content-img" id="hush-pink-2" alt="Hush Pink 02" data-src="./Assets/Product Images/Hush Pink/02.png">
+                <img src="./Assets/Product Images/Hush Pink/03.png" class="right-content-img" id="hush-pink-3" alt="Hush Pink 03" data-src="./Assets/Product Images/Hush Pink/03.png">
+                <img src="./Assets/Product Images/Hush Pink/04.png" class="right-content-img" id="hush-pink-4" alt="Hush Pink 04" data-src="./Assets/Product Images/Hush Pink/04.png">
+            </div>
+            
+            <h2>AR Try-On</h2>
+            <img src="./Assets/Product Images/Hush AR QR.png" class="qr-code-img" alt="AR QR Code">
+            
+            <br>
+            <a href="https://www.gentlemonster.com/us/shop/item/hushp7/EK6JJNUD8WCS" target="_blank">
+                <button class="cta-button" id="buy-button">Buy Now</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- GLASSES - HUSH WHITE -->
+    <div class="info-window" id="hush-white-info-window">
+        <div class="left-content">
+            <img src="./Assets/Product Images/Hush White/01.png" class="left-content-img" id="big-hush-white-1" alt="Hush White 01">
+            <img src="./Assets/Product Images/Hush White/02.png" class="left-content-img" id="big-hush-white-2" alt="Hush White 02">
+            <img src="./Assets/Product Images/Hush White/03.png" class="left-content-img" id="big-hush-white-3" alt="Hush White 03">
+            <img src="./Assets/Product Images/Hush White/04.png" class="left-content-img" id="big-hush-white-4" alt="Hush White 04">
+            <h2>Jennie - Hush W2</h2>
+            <h3>RM 1,300</h3>
+        </div>
+        
+        <div class="right-content">
+            <button class="close-button">&times;</button>
+            <div>
+                
+            </div>
+            <h2 style="padding-top: 0 !important;">Product Details</h2>
+            <p>Discover the Hush W2 sunglasses from the Jentle Salon collection. The soft oval shape blends seamlessly with the clean white color to create a unique style while the iconic details on the temples add a captivating appeal.</p>
+            
+            
+            <h2>Product Images</h2>
+            <div class="product-images"> 
+                <img src="./Assets/Product Images/Hush White/01.png" class="right-content-img" id="hush-white-1" alt="Hush White 01" data-src="./Assets/Product Images/Hush White/01.png">
+                <img src="./Assets/Product Images/Hush White/02.png" class="right-content-img" id="hush-white-2" alt="Hush White 02" data-src="./Assets/Product Images/Hush Whitek/02.png">
+                <img src="./Assets/Product Images/Hush White/03.png" class="right-content-img" id="hush-white-3" alt="Hush White 03" data-src="./Assets/Product Images/Hush White/03.png">
+                <img src="./Assets/Product Images/Hush White/04.png" class="right-content-img" id="hush-white-4" alt="Hush White 04" data-src="./Assets/Product Images/Hush White/04.png">
+            </div>
+            
+            <h2>AR Try-On</h2>
+            <img src="./Assets/Product Images/Hush AR QR.png" class="qr-code-img" alt="AR QR Code">
+            
+            <br>
+
+            <a href="https://www.gentlemonster.com/us/shop/item/hushw2/EK6JJNUC4TU6" target="_blank">
+                <button class="cta-button" id="buy-button">Buy Now</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="info-window" id="hush-black-info-window">
+        <div class="left-content">
+            <img src="./Assets/Product Images/Hush Black/01.png" class="left-content-img" id="big-hush-black-1" alt="Hush Black 01">
+            <img src="./Assets/Product Images/Hush Black/02.png" class="left-content-img" id="big-hush-black-2" alt="Hush Black 02">
+            <img src="./Assets/Product Images/Hush Black/03.png" class="left-content-img" id="big-hush-black-3" alt="Hush Black 03">
+            <img src="./Assets/Product Images/Hush Black/04.png" class="left-content-img" id="big-hush-black-4" alt="Hush Black 04">
+            <h2>Jennie - Hush 01</h2>
+            <h3>RM 1,300</h3>
+        </div>
+        
+        <div class="right-content">
+            <button class="close-button">&times;</button>
+            <div>
+                
+            </div>
+            <h2 style="padding-top: 0 !important;">Product Details</h2>
+            <p>Discover the Hush 01 sunglasses from the Jentle Salon collection. The soft oval shape blends seamlessly with the simple black color to create a unique style while the iconic details on the temples add a captivating appeal.</p>
+            
+            
+            <h2>Product Images</h2>
+            <div class="product-images"> 
+                <img src="./Assets/Product Images/Hush Black/01.png" class="right-content-img" id="hush-black-1" alt="Hush Black 01" data-src="./Assets/Product Images/Hush Black/01.png">
+                <img src="./Assets/Product Images/Hush Black/02.png" class="right-content-img" id="hush-black-2" alt="Hush Black 02" data-src="./Assets/Product Images/Hush Black/02.png">
+                <img src="./Assets/Product Images/Hush Black/03.png" class="right-content-img" id="hush-black-3" alt="Hush Black 03" data-src="./Assets/Product Images/Hush Black/03.png">
+                <img src="./Assets/Product Images/Hush Black/04.png" class="right-content-img" id="hush-black-4" alt="Hush Black 04" data-src="./Assets/Product Images/Hush Black/04.png">
+            </div>
+            
+            <h2>AR Try-On</h2>
+            <img src="./Assets/Product Images/Hush AR QR.png" class="qr-code-img" alt="AR QR Code">
+            
+            <br>
+            <a href="https://www.gentlemonster.com/us/shop/item/hush01/DSTWI61M36EY" target="_blank">
+                <button class="cta-button" id="buy-button">Buy Now</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- GLASSES - HUSH BROWN -->
+    <div class="info-window" id="hush-brown-info-window">
+        <div class="left-content">
+            <img src="./Assets/Product Images/Hush Brown/01.png" class="left-content-img" id="big-hush-brown-1" alt="Hush Brown 01">
+            <img src="./Assets/Product Images/Hush Brown/02.png" class="left-content-img" id="big-hush-brown-2" alt="Hush Brown 02">
+            <img src="./Assets/Product Images/Hush Brown/03.png" class="left-content-img" id="big-hush-brown-3" alt="Hush Brown 03">
+            <img src="./Assets/Product Images/Hush Brown/04.png" class="left-content-img" id="big-hush-brown-4" alt="Hush Brown 04">
+            <h2>Jennie - Hush BR3</h2>
+            <h3>RM 1,300</h3>
+        </div>
+        
+        <div class="right-content">
+            <button class="close-button">&times;</button>
+            <div>
+                
+            </div>
+            <h2 style="padding-top: 0 !important;">Product Details</h2>
+            <p>Discover the Hush BR3 sunglasses from the Jentle Salon collection. The soft oval shape blends seamlessly with the vintage chocolate brown color to create a unique style while the iconic details on the temples add a captivating appeal.</p>
+            
+            
+            <h2>Product Images</h2>
+            <div class="product-images"> 
+                <img src="./Assets/Product Images/Hush Brown/01.png" class="right-content-img" id="hush-brown-1" alt="Hush Brown 01" data-src="./Assets/Product Images/Hush Brown/01.png">
+                <img src="./Assets/Product Images/Hush Brown/02.png" class="right-content-img" id="hush-brown-2" alt="Hush Brown 02" data-src="./Assets/Product Images/Hush Brown/02.png">
+                <img src="./Assets/Product Images/Hush Brown/03.png" class="right-content-img" id="hush-brown-3" alt="Hush Brown 03" data-src="./Assets/Product Images/Hush Brown/03.png">
+                <img src="./Assets/Product Images/Hush Brown/04.png" class="right-content-img" id="hush-brown-4" alt="Hush Brown 04" data-src="./Assets/Product Images/Hush Brown/04.png">
+            </div>
+            
+            <h2>AR Try-On</h2>
+            <img src="./Assets/Product Images/Hush AR QR.png" class="qr-code-img" alt="AR QR Code">
+            
+            <br>
+
+            <a href="https://www.gentlemonster.com/us/shop/item/hushbr3/DSTWI61OFPUP" target="_blank">
+                <button class="cta-button" id="buy-button">Buy Now</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- CDN -->
+    <!-- GLASSES - CDN PINK -->
+    <div class="info-window" id="cdn-pink-info-window">
+        <div class="left-content">
+            <img src="./Assets/Product Images/CDN Pink/01.png" class="left-content-img" id="big-cdn-pink-1" alt="CDN Pink 01">
+            <img src="./Assets/Product Images/CDN Pink/02.png" class="left-content-img" id="big-cdn-pink-2" alt="CDN Pink 02">
+            <img src="./Assets/Product Images/CDN Pink/03.png" class="left-content-img" id="big-cdn-pink-3" alt="CDN Pink 03">
+            <img src="./Assets/Product Images/CDN Pink/04.png" class="left-content-img" id="big-cdn-pink-4" alt="CDN Pink 04">
+            <h2>Jennie - Cheveux De Nini P7</h2>
+            <h3>RM 1,500</h3>
+        </div>
+        
+        <div class="right-content">
+            <button class="close-button">&times;</button>
+            <div>
+                
+            </div>
+            <h2 style="padding-top: 0 !important;">Product Details</h2>
+            <p>Discover the Cheveux De Nini P7 sunglasses from the Jentle Salon collection. The goggle-shaped design blends seamlessly with the dusty rose pink color to evoke a unique vibe. </p>
+            
+            
+            <h2>Product Images</h2>
+            <div class="product-images"> 
+                <img src="./Assets/Product Images/CDN Pink/01.png" class="right-content-img" id="cdn-pink-1" alt="CDN Pink 01" data-src="./Assets/Product Images/CDN Pink/01.png">
+                <img src="./Assets/Product Images/CDN Pink/02.png" class="right-content-img" id="cdn-pink-2" alt="CDN Pink 02" data-src="./Assets/Product Images/CDN Pink/02.png">
+                <img src="./Assets/Product Images/CDN Pink/03.png" class="right-content-img" id="cdn-pink-3" alt="CDN Pink 03" data-src="./Assets/Product Images/CDN Pink/03.png">
+                <img src="./Assets/Product Images/CDN Pink/04.png" class="right-content-img" id="cdn-pink-4" alt="CDN Pink 04" data-src="./Assets/Product Images/CDN Pink/04.png">
+            </div>
+            
+            <h2>AR Try-On</h2>
+            <img src="./Assets/Product Images/CDN AR QR.png" class="qr-code-img" alt="AR QR Code">
+            
+            <br>
+
+            <a href="https://www.gentlemonster.com/us/shop/item/cheveuxdeninip7/D1H9GO8VBV7Z" target="_blank">
+                <button class="cta-button" id="buy-button">Buy Now</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- GLASSES - CDN BLACK -->
+    <div class="info-window" id="cdn-black-info-window">
+        <div class="left-content">
+            <img src="./Assets/Product Images/CDN Black/01.png" class="left-content-img" id="big-cdn-black-1" alt="CDN Black 01">
+            <img src="./Assets/Product Images/CDN Black/02.png" class="left-content-img" id="big-cdn-black-2" alt="CDN Black 02">
+            <img src="./Assets/Product Images/CDN Black/03.png" class="left-content-img" id="big-cdn-black-3" alt="CDN Black 03">
+            <img src="./Assets/Product Images/CDN Black/04.png" class="left-content-img" id="big-cdn-black-4" alt="CDN Black 04">
+            <h2>Jennie - Cheveux De Nini 01</h2>
+            <h3>RM 1,500</h3>
+        </div>
+        
+        <div class="right-content">
+            <button class="close-button">&times;</button>
+            <div>
+                
+            </div>
+            <h2 style="padding-top: 0 !important;">Product Details</h2>
+            <p>Discover the Cheveux De Nini 01 sunglasses from the Jentle Salon collection. The goggle-shaped design blends seamlessly with the simple black color to evoke a unique vibe.</p>
+            
+            
+            <h2>Product Images</h2>
+            <div class="product-images"> 
+                <img src="./Assets/Product Images/CDN Black/01.png" class="right-content-img" id="cdn-black-1" alt="CDN Black 01" data-src="./Assets/Product Images/CDN Black/01.png">
+                <img src="./Assets/Product Images/CDN Black/02.png" class="right-content-img" id="cdn-black-2" alt="CDN Black 02" data-src="./Assets/Product Images/CDN Black/02.png">
+                <img src="./Assets/Product Images/CDN Black/03.png" class="right-content-img" id="cdn-black-3" alt="CDN Black 03" data-src="./Assets/Product Images/CDN Black/03.png">
+                <img src="./Assets/Product Images/CDN Black/04.png" class="right-content-img" id="cdn-black-4" alt="CDN Black 04" data-src="./Assets/Product Images/CDN Black/04.png">
+            </div>
+            
+            <h2>AR Try-On</h2>
+            <img src="./Assets/Product Images/CDN AR QR.png" class="qr-code-img" alt="AR QR Code">
+            
+            <br>
+
+            <a href="https://www.gentlemonster.com/us/shop/item/cheveuxdenini01/CA4MF6G2D7MM" target="_blank">
+                <button class="cta-button" id="buy-button">Buy Now</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- GLASSES - CDN BROWN -->
+    <div class="info-window" id="cdn-brown-info-window">
+        <div class="left-content">
+            <img src="./Assets/Product Images/CDN Brown/01.png" class="left-content-img" id="big-cdn-brown-1" alt="CDN Brown 01">
+            <img src="./Assets/Product Images/CDN Brown/02.png" class="left-content-img" id="big-cdn-brown-2" alt="CDN Brown 02">
+            <img src="./Assets/Product Images/CDN Brown/03.png" class="left-content-img" id="big-cdn-brown-3" alt="CDN Brown 03">
+            <img src="./Assets/Product Images/CDN Brown/04.png" class="left-content-img" id="big-cdn-brown-4" alt="CDN Brown 04">
+            <h2>Jennie - Cheveux De Nini BR3</h2>
+            <h3>RM 1,500</h3>
+        </div>
+        
+        <div class="right-content">
+            <button class="close-button">&times;</button>
+            <div>
+                
+            </div>
+            <h2 style="padding-top: 0 !important;">Product Details</h2>
+            <p>Discover the Cheveux De Nini BR3 sunglasses from the Jentle Salon collection. The goggle-shaped design blends seamlessly with the vintage chocolate brown color to evoke a unique vibe. </p>
+            
+            
+            <h2>Product Images</h2>
+            <div class="product-images"> 
+                <img src="./Assets/Product Images/CDN Brown/01.png" class="right-content-img" id="cdn-brown-1" alt="CDN Brown 01" data-src="./Assets/Product Images/CDN Brown/01.png">
+                <img src="./Assets/Product Images/CDN Brown/02.png" class="right-content-img" id="cdn-brown-2" alt="CDN Brown 02" data-src="./Assets/Product Images/CDN Brown/02.png">
+                <img src="./Assets/Product Images/CDN Brown/03.png" class="right-content-img" id="cdn-brown-3" alt="CDN Brown 03" data-src="./Assets/Product Images/CDN Brown/03.png">
+                <img src="./Assets/Product Images/CDN Brown/04.png" class="right-content-img" id="cdn-brown-4" alt="CDN Brown 04" data-src="./Assets/Product Images/CDN Brown/04.png">
+            </div>
+            
+            <h2>AR Try-On</h2>
+            <img src="./Assets/Product Images/CDN AR QR.png" class="qr-code-img" alt="AR QR Code">
+            
+            <br>
+
+            <a href="https://www.gentlemonster.com/us/shop/item/cheveuxdeninibr3/D1H9GO8TH01L" target="_blank">
+                <button class="cta-button" id="buy-button">Buy Now</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- WISPY -->
+    <!-- GLASSES - WISPY YELLOW -->
+    <div class="info-window" id="wispy-yellow-info-window">
+        <div class="left-content">
+            <img src="./Assets/Product Images/Wispy Yellow/01.png" class="left-content-img" id="big-wispy-yellow-1" alt="Wispy Yellow 01">
+            <img src="./Assets/Product Images/Wispy Yellow/02.png" class="left-content-img" id="big-wispy-yellow-2" alt="Wispy Yellow 02">
+            <img src="./Assets/Product Images/Wispy Yellow/03.png" class="left-content-img" id="big-wispy-yellow-3" alt="Wispy Yellow 03">
+            <img src="./Assets/Product Images/Wispy Yellow/04.png" class="left-content-img" id="big-wispy-yellow-4" alt="Wispy Yellow 04">
+            <h2>Jennie - Wispy Y8</h2>
+            <h3>RM 1,400</h3>
+        </div>
+        
+        <div class="right-content">
+            <button class="close-button">&times;</button>
+            <div>
+                
+            </div>
+            <h2 style="padding-top: 0 !important;">Product Details</h2>
+            <p>Discover the Wispy Y8 sunglasses from the Jentle Salon collection. The combination of the curved square shape and soft, buttery yellow color gives this product a modern feel while the iconic details on the temples add a captivating appeal.</p>
+            
+            
+            <h2>Product Images</h2>
+            <div class="product-images"> 
+                <img src="./Assets/Product Images/Wispy Yellow/01.png" class="right-content-img" id="wispy-yellow-1" alt="Wispy Yellow 01" data-src="./Assets/Product Images/Wispy Yellow/01.png">
+                <img src="./Assets/Product Images/Wispy Yellow/02.png" class="right-content-img" id="wispy-yellow-2" alt="Wispy Yellow 02" data-src="./Assets/Product Images/Wispy Yellow/02.png">
+                <img src="./Assets/Product Images/Wispy Yellow/03.png" class="right-content-img" id="wispy-yellow-3" alt="Wispy Yellow 03" data-src="./Assets/Product Images/Wispy Yellow/03.png">
+                <img src="./Assets/Product Images/Wispy Yellow/04.png" class="right-content-img" id="wispy-yellow-4" alt="Wispy Yellowe 04" data-src="./Assets/Product Images/Wispy Yellow/04.png">
+            </div>
+            
+            <h2>AR Try-On</h2>
+            <img src="./Assets/Product Images/Wispy AR QR.png" class="qr-code-img" alt="AR QR Code">
+            
+            <br>
+            <a href="https://www.gentlemonster.com/us/shop/item/wispyy8/FBJ6L5N6KW1I" target="_blank">
+                <button class="cta-button" id="buy-button">Buy Now</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- GLASSES - WISPY GREEN -->
+    <div class="info-window" id="wispy-green-info-window">
+        <div class="left-content">
+            <img src="./Assets/Product Images/Wispy Green/01.png" class="left-content-img" id="big-wispy-green-1" alt="Wispy Green 01">
+            <img src="./Assets/Product Images/Wispy Green/02.png" class="left-content-img" id="big-wispy-green-2" alt="Wispy Green 02">
+            <img src="./Assets/Product Images/Wispy Green/03.png" class="left-content-img" id="big-wispy-green-3" alt="Wispy Green 03">
+            <img src="./Assets/Product Images/Wispy Green/04.png" class="left-content-img" id="big-wispy-green-4" alt="Wispy Green 04">
+            <h2>Jennie - Wispy GR8</h2>
+            <h3>RM 1,400</h3>
+        </div>
+        
+        <div class="right-content">
+            <button class="close-button">&times;</button>
+            <div>
+                
+            </div>
+            <h2 style="padding-top: 0 !important;">Product Details</h2>
+            <p>Discover the Wispy GR8 sunglasses from the Jentle Salon collection. The combination of the curved square shape and irresistible green color gives this product a modern feel while the iconic details on the temples add a captivating appeal.</p>
+            
+            
+            <h2>Product Images</h2>
+            <div class="product-images"> 
+                <img src="./Assets/Product Images/Wispy Green/01.png" class="right-content-img" id="wispy-green-1" alt="Wispy Green 01" data-src="./Assets/Product Images/Wispy Green/01.png">
+                <img src="./Assets/Product Images/Wispy Green/02.png" class="right-content-img" id="wispy-green-2" alt="Wispy Green 02" data-src="./Assets/Product Images/Wispy Green/02.png">
+                <img src="./Assets/Product Images/Wispy Green/03.png" class="right-content-img" id="wispy-green-3" alt="Wispy Green 03" data-src="./Assets/Product Images/Wispy Green/03.png">
+                <img src="./Assets/Product Images/Wispy Green/04.png" class="right-content-img" id="wispy-green-4" alt="Wispy Green 04" data-src="./Assets/Product Images/Wispy Green/04.png">
+            </div>
+            
+            <h2>AR Try-On</h2>
+            <img src="./Assets/Product Images/Wispy AR QR.png" class="qr-code-img" alt="AR QR Code">
+            
+            <br>
+            <a href="https://www.gentlemonster.com/us/shop/item/wispygr8/FBJ6L5N5MRQ5" target="_blank">
+                <button class="cta-button" id="buy-button">Buy Now</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- GLASSES - WISPY BLACK -->
+    <div class="info-window" id="wispy-black-info-window">
+        <div class="left-content">
+            <img src="./Assets/Product Images/Wispy Black/01.png" class="left-content-img" id="big-wispy-black-1" alt="Wispy Black 01">
+            <img src="./Assets/Product Images/Wispy Black/02.png" class="left-content-img" id="big-wispy-black-2" alt="Wispy Black 02">
+            <img src="./Assets/Product Images/Wispy Black/03.png" class="left-content-img" id="big-wispy-black-3" alt="Wispy Black 03">
+            <img src="./Assets/Product Images/Wispy Black/04.png" class="left-content-img" id="big-wispy-black-4" alt="Wispy Black 04">
+            <h2>Jennie - Wispy 01</h2>
+            <h3>RM 1,400</h3>
+        </div>
+        
+        <div class="right-content">
+            <button class="close-button">&times;</button>
+            <div>
+                
+            </div>
+            <h2 style="padding-top: 0 !important;">Product Details</h2>
+            <p>Discover the Wispy 01 sunglasses from the Jentle Salon collection. The combination of the curved square shape and simple black color gives this product a modern feel while the iconic details on the temples add a captivating appeal.</p>
+            
+            
+            <h2>Product Images</h2>
+            <div class="product-images"> 
+                <img src="./Assets/Product Images/Wispy Black/01.png" class="right-content-img" id="wispy-black-1" alt="Wispy Black 01" data-src="./Assets/Product Images/Wispy Black/01.png">
+                <img src="./Assets/Product Images/Wispy Black/02.png" class="right-content-img" id="wispy-black-2" alt="Wispy Black 02" data-src="./Assets/Product Images/Wispy Black/02.png">
+                <img src="./Assets/Product Images/Wispy Black/03.png" class="right-content-img" id="wispy-black-3" alt="Wispy Black 03" data-src="./Assets/Product Images/Wispy Black/03.png">
+                <img src="./Assets/Product Images/Wispy Black/04.png" class="right-content-img" id="wispy-black-4" alt="Wispy Black 04" data-src="./Assets/Product Images/Wispy Black/04.png">
+            </div>
+            
+            <h2>AR Try-On</h2>
+            <img src="./Assets/Product Images/Wispy AR QR.png" class="qr-code-img" alt="AR QR Code">
+            
+            <br>
+            <a href="https://www.gentlemonster.com/us/shop/item/wispygr8/FBJ6L5N5MRQ5" target="_blank">
+                <button class="cta-button" id="buy-button">Buy Now</button>
+              </a>
+        </div>
+    </div>
+
+    <!-- DB -->
+    <!-- GLASSES - DB BLUE -->
+    <div class="info-window" id="db-blue-info-window">
+        <div class="left-content">
+            <img src="./Assets/Product Images/DB Blue/01.png" class="left-content-img" id="big-db-blue-1" alt="DB Blue 01">
+            <img src="./Assets/Product Images/DB Blue/02.png" class="left-content-img" id="big-db-blue-2" alt="DB Blue 02">
+            <img src="./Assets/Product Images/DB Blue/03.png" class="left-content-img" id="big-db-blue-3" alt="DB Blue 03">
+            <img src="./Assets/Product Images/DB Blue/04.png" class="left-content-img" id="big-db-blue-4" alt="DB Blue 04">
+            <h2>Jennie - Donut Bun BL5</h2>
+            <h3>RM 1,400</h3>
+        </div>
+        
+        <div class="right-content">
+            <button class="close-button">&times;</button>
+            <div>
+                
+            </div>
+            <h2 style="padding-top: 0 !important;">Product Details</h2>
+            <p>Discover the Donut Bun BL5 sunglasses from the Jentle Salon collection. The stylish, voluminous goggle shape blends seamlessly with the soft blue color to evoke a unique vibe.   </p>
+            
+            
+            <h2>Product Images</h2>
+            <div class="product-images"> 
+                <img src="./Assets/Product Images/DB Blue/01.png" class="right-content-img" id="db-blue-1" alt="DB Blue 01" data-src="./Assets/Product Images/DB Blue/01.png">
+                <img src="./Assets/Product Images/DB Blue/02.png" class="right-content-img" id="db-blue-2" alt="DB Blue 02" data-src="./Assets/Product Images/DB Blue/02.png">
+                <img src="./Assets/Product Images/DB Blue/03.png" class="right-content-img" id="db-blue-3" alt="DB Blue 03" data-src="./Assets/Product Images/DB Blue/03.png">
+                <img src="./Assets/Product Images/DB Blue/04.png" class="right-content-img" id="db-blue-4" alt="DB Blue 04" data-src="./Assets/Product Images/DB Blue/04.png">
+            </div>
+            
+            <h2>AR Try-On</h2>
+            <img src="./Assets/Product Images/Donut Bun AR QR.png" class="qr-code-img" alt="AR QR Code">
+            
+            <br>
+
+            <a href="https://www.gentlemonster.com/us/shop/item/donutbunbl5/G2VTMNFZXSTW" target="_blank">
+                <button class="cta-button" id="buy-button">Buy Now</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- GLASSES - DB BLACK -->
+    <div class="info-window" id="db-black-info-window">
+        <div class="left-content">
+            <img src="./Assets/Product Images/DB Black/01.png" class="left-content-img" id="big-db-black-1" alt="DB Black 01">
+            <img src="./Assets/Product Images/DB Black/02.png" class="left-content-img" id="big-db-black-2" alt="DB Black 02">
+            <img src="./Assets/Product Images/DB Black/03.png" class="left-content-img" id="big-db-black-3" alt="DB Black 03">
+            <img src="./Assets/Product Images/DB Black/04.png" class="left-content-img" id="big-db-black-4" alt="DB Black 04">
+            <h2>Jennie - Donut Bun 01</h2>
+            <h3>RM 1,400</h3>
+        </div>
+        
+        <div class="right-content">
+            <button class="close-button">&times;</button>
+            <div>
+                
+            </div>
+            <h2 style="padding-top: 0 !important;">Product Details</h2>
+            <p>Discover the Donut Bun 01 sunglasses from the Jentle Salon collection. The stylish, voluminous goggle shape blends seamlessly with the simple black color to evoke a unique vibe.</p>
+            
+            
+            <h2>Product Images</h2>
+            <div class="product-images"> 
+                <img src="./Assets/Product Images/DB Black/01.png" class="right-content-img" id="db-black-1" alt="DB Black 01" data-src="./Assets/Product Images/DB Black/01.png">
+                <img src="./Assets/Product Images/DB Black/02.png" class="right-content-img" id="db-black-2" alt="DB Black 02" data-src="./Assets/Product Images/DB Black/02.png">
+                <img src="./Assets/Product Images/DB Black/03.png" class="right-content-img" id="db-black-3" alt="DB Black 03" data-src="./Assets/Product Images/DB Black/03.png">
+                <img src="./Assets/Product Images/DB Black/04.png" class="right-content-img" id="db-black-4" alt="DB Black 04" data-src="./Assets/Product Images/DB Black/04.png">
+            </div>
+            
+            <h2>AR Try-On</h2>
+            <img src="./Assets/Product Images/Donut Bun AR QR.png" class="qr-code-img" alt="AR QR Code">
+            
+            <br>
+
+            <a href="https://www.gentlemonster.com/us/shop/item/donutbun01/G2VTMNFXZ8PH" target="_blank">
+                <button class="cta-button" id="buy-button">Buy Now</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- GLASSES - DB BROWN -->
+    <div class="info-window" id="db-brown-info-window">
+        <div class="left-content">
+            <img src="./Assets/Product Images/DB Brown/01.png" class="left-content-img" id="big-db-brown-1" alt="DB Brown 01">
+            <img src="./Assets/Product Images/DB Brown/02.png" class="left-content-img" id="big-db-brown-2" alt="DB Brown 02">
+            <img src="./Assets/Product Images/DB Brown/03.png" class="left-content-img" id="big-db-brown-3" alt="DB Brown 03">
+            <img src="./Assets/Product Images/DB Brown/04.png" class="left-content-img" id="big-db-brown-4" alt="DB Brown 04">
+            <h2>Jennie - Donut Bun BR3</h2>
+            <h3>RM 1,400</h3>
+        </div>
+        
+        <div class="right-content">
+            <button class="close-button">&times;</button>
+            <div>
+                
+            </div>
+            <h2 style="padding-top: 0 !important;">Product Details</h2>
+            <p>Discover the Donut Bun BR3 sunglasses from the Jentle Salon collection. The stylish, voluminous goggle shape blends seamlessly with the vintage chocolate brown color to evoke a unique vibe.</p>
+            
+            
+            <h2>Product Images</h2>
+            <div class="product-images"> 
+                <img src="./Assets/Product Images/DB Brown/01.png" class="right-content-img" id="db-brown-1" alt="DB Brown 01" data-src="./Assets/Product Images/DB Brown/01.png">
+                <img src="./Assets/Product Images/DB Brown/02.png" class="right-content-img" id="db-brown-2" alt="DB Brown 02" data-src="./Assets/Product Images/DB Brown/02.png">
+                <img src="./Assets/Product Images/DB Brown/03.png" class="right-content-img" id="db-brown-3" alt="DB Brown 03" data-src="./Assets/Product Images/DB Brown/03.png">
+                <img src="./Assets/Product Images/DB Brown/04.png" class="right-content-img" id="db-brown-4" alt="DB Brown 04" data-src="./Assets/Product Images/DB Brown/04.png">
+            </div>
+            
+            <h2>AR Try-On</h2>
+            <img src="./Assets/Product Images/Donut Bun AR QR.png" class="qr-code-img" alt="AR QR Code">
+            
+            <br>
+
+            <a href="https://www.gentlemonster.com/us/shop/item/donutbunbr3/G2VTMNFYYPK6" target="_blank">
+                <button class="cta-button" id="buy-button">Buy Now</button>
+              </a>
+        </div>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+</body>
+</html>
