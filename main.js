@@ -1,12 +1,13 @@
 // Import necessary modules
 import * as THREE from 'three';
-//import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { GLTFLoader } from "./node_modules/three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "./node_modules/three/examples/jsm/controls/OrbitControls.js";
 import { RGBELoader } from "./node_modules/three/examples/jsm/loaders/RGBELoader.js";
+import { gsap } from "./node_modules/gsap/index.js";
+//import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 //import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 //import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
-import { gsap } from 'gsap';
+//import { gsap } from 'gsap';
 
 // Setup WebGLRenderer with antialiasing and color space
 const renderer = new THREE.WebGLRenderer({ antialias: true });
